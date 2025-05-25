@@ -60,15 +60,7 @@ export default function Hero() {
 
             <div className="mt-12 relative">
               <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-100">
-                <div className="aspect-w-16 aspect-h-9 relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80"
-                    alt="Interview simulation screenshot"
-                    width={800}
-                    height={450}
-                    className="object-cover"
-                  />
-                </div>
+                <div className="aspect-w-16 aspect-h-9 relative"></div>
               </div>
             </div>
           </div>
