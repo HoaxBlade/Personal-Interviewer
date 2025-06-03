@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function Dashboard () {
     return(
-        <div className="flex flex-col h-screen">
+        <div className="relative overflow-hidden bg-white">
 
         </div>
     );
