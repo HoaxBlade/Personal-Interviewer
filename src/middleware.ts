@@ -29,8 +29,9 @@ export async function middleware(req: NextRequest) {
   // Refresh session if expired - required for Server Components
   const { data: { session }, error } = await supabase.auth.getSession()
 
-  if (error) {
-    console.error('Auth session error:', error)
+  // Protect dashboard routes
+  if (req.nextUrl.pathname.startsWith('/dashboard') && !session) {
+    return NextResponse.redirect(new URL('/sign-in', req.url))
   }
 
   return res
