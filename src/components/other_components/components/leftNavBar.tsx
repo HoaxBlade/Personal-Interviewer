@@ -5,13 +5,14 @@ import { usePathname, useRouter } from 'next/navigation';
 import { motion } from "framer-motion";
 import { 
     LayoutDashboard, 
-    MessageSquare, 
+    MessagesSquareIcon, 
     BookOpen, 
     Trophy, 
-    FileText, 
-    StickyNote,
+     
+    NotebookPen,
     Settings,
-    LogOut
+    LogOut,
+    BriefcaseBusiness
 } from 'lucide-react';
 import { createClient } from '../../../../supabase/client';
 
@@ -32,11 +33,11 @@ const LeftNavBar = () => {
 
     const navItems = [
         { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard},
-        { path: '/chat', label: 'Chat', icon: MessageSquare},
+        { path: '/chat', label: 'Chat', icon: MessagesSquareIcon},
         { path: '/courses', label: 'Courses', icon: BookOpen},
         { path: '/achievements', label: 'Achievements', icon: Trophy},
-        { path: '/assessments', label: 'Assessments', icon: FileText},
-        { path: '/notes', label: 'My Notes', icon: StickyNote},
+        { path: '/assessments', label: 'Mock Interviews', icon: BriefcaseBusiness},
+        { path: '/notes', label: 'My Notes', icon: NotebookPen},
     ];
 
     return (
