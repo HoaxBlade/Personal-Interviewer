@@ -34,7 +34,7 @@ const LeftNavBar = () => {
     const navItems = [
         { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard},
         { path: '/chat', label: 'Chat', icon: MessagesSquareIcon},
-        { path: '/courses', label: 'Courses', icon: BookOpen},
+        { path: '/courses', label: 'Interview Prep', icon: BookOpen},
         { path: '/achievements', label: 'Achievements', icon: Trophy},
         { path: '/assessments', label: 'Mock Interviews', icon: BriefcaseBusiness},
         { path: '/notes', label: 'My Notes', icon: NotebookPen},

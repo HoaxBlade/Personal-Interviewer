@@ -4,6 +4,7 @@ import LeftNavBar from "@/components/other_components/components/leftNavBar";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Loader2 } from "lucide-react";
+import { createClient } from '@/supabase/client';
 
 interface Message {
     text: string;
@@ -11,6 +12,9 @@ interface Message {
 }
 
 const ChatPage = () => {
+    const [userName, setUserName] = useState<string>("");
+    const supabase = createClient();
+
     const [messages, setMessages] = useState<Message[]>(() => {
         if (typeof window !== 'undefined') {
             const savedMessages = localStorage.getItem("chatMessages");
@@ -30,6 +34,43 @@ const ChatPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const chatContainerRef = useRef<HTMLDivElement>(null);
 
+    // Fetch user data when component mounts
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const { data: users } = await supabase
+                        .from('users')
+                        .select('full_name')
+                        .eq('id', user.id)
+                        .single();
+                    
+                    if (users?.full_name) {
+                        setUserName(users.full_name);
+                        // Update the initial greeting message with the user's name
+                        setMessages(prev => {
+                            if (prev.length > 0 && prev[0].sender === 'agent') {
+                                return [
+                                    {
+                                        text: `Hello ${users.full_name}! How can I help you today?`,
+                                        sender: "agent",
+                                    },
+                                    ...prev.slice(1)
+                                ];
+                            }
+                            return prev;
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
     const handleSendMessage = async () => {
         if (input.trim() === "") return;
 
@@ -42,15 +83,39 @@ const ChatPage = () => {
         setInput("");
         setIsLoading(true);
 
-        // Simulate response delay
-        setTimeout(() => {
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    messages: [...messages, userMessage],
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to get response');
+            }
+
+            const data = await response.json();
+            
             const agentMessage: Message = {
-                text: "This is a sample response.",
+                text: data.response,
                 sender: "agent",
             };
+            
             setMessages((prev: Message[]) => [...prev, agentMessage]);
+        } catch (error) {
+            console.error('Error sending message:', error);
+            const errorMessage: Message = {
+                text: "Sorry, I encountered an error. Please try again.",
+                sender: "agent",
+            };
+            setMessages((prev: Message[]) => [...prev, errorMessage]);
+        } finally {
             setIsLoading(false);
-        }, 1000);
+        }
     };
 
     // Save messages to localStorage
@@ -176,7 +241,6 @@ const ChatPage = () => {
                 >
                     <div className="flex items-center gap-2">
                         <motion.input
-                            
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
