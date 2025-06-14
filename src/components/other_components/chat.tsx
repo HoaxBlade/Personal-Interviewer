@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Loader2 } from "lucide-react";
 import { createClient } from '@/supabase/client';
+import MarkdownRenderer from "@/components/markdown-renderer";
 
 interface Message {
     text: string;
@@ -161,7 +162,7 @@ const ChatPage = () => {
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="flex-1 flex flex-col"
+                className="flex-1 flex flex-col relative"
             >
                 {/* Chat Header */}
                 <motion.div 
@@ -197,14 +198,18 @@ const ChatPage = () => {
                                 className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                             >
                                 <motion.div
-                                    whileHover={{ scale: 1.02 }}
+                                    whileHover={{ scale: 1 }}
                                     className={`max-w-[70%] rounded-lg p-3 ${
                                         msg.sender === 'user'
                                             ? 'bg-blue-500 text-white'
                                             : 'bg-gray-200 text-gray-800'
                                     }`}
                                 >
-                                    {msg.text}
+                                    {msg.sender === 'agent' ? (
+                                        <MarkdownRenderer content={msg.text} />
+                                    ) : (
+                                        msg.text
+                                    )}
                                 </motion.div>
                             </motion.div>
                         ))}
@@ -215,11 +220,11 @@ const ChatPage = () => {
                 <AnimatePresence>
                     {isLoading && (
                         <motion.div
-                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            initial={{ opacity: 0, y: 20, scale: 0 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 20, scale: 0.9 }}
                             transition={{ duration: 0.3 }}
-                            className="absolute bottom-24 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-lg shadow-lg flex items-center gap-2"
+                            className="fixed bottom-32 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-lg shadow-lg flex items-center gap-2 z-50"
                         >
                             <motion.div
                                 animate={{ rotate: 360 }}
