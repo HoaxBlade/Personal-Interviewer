@@ -139,11 +139,11 @@ const CoursesRightSideBar: React.FC<CoursesRightSideBarProps> = ({
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="bg-white text-black h-screen flex flex-col border-l border-gray-200 w-full max-w-xs"
+      className="bg-white text-black h-screen flex flex-col border-l border-gray-200 w-full max-w-sm"
     >
-      <div className="bg-white h-20 flex items-center justify-center shadow">
-        <BriefcaseBusiness className="w-10 h-10 text-black mr-3" />
-        <h1 className="text-2xl font-bold">Course Overview</h1>
+      <div className="bg-gray-200 h-20 flex items-center justify-center shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <BriefcaseBusiness className="w-8 h-8 text-black mr-3" />
+        <h1 className="text-2xl font-medium text-black">Course Overview</h1>
       </div>
       <div className="bg-white px-3 pb-3 h-full overflow-auto">
         <Accordion type="single" collapsible>
@@ -152,22 +152,22 @@ const CoursesRightSideBar: React.FC<CoursesRightSideBarProps> = ({
             const isAccessible = isModuleAccessible(index);
             const assessmentCompleted = isAssessmentCompleted(module._id);
 
-            let icon;
+            let iconStateProp: "locked" | "unlocked" | "completed";
             if (isCompleted && assessmentCompleted) {
-              icon = <CheckCircle2 className="text-green-600 mr-2" />;
+              iconStateProp = "completed";
             } else if (isAccessible) {
-              icon = <Unlock className="text-blue-500 mr-2" />;
+              iconStateProp = "unlocked";
             } else {
-              icon = <Lock className="text-gray-400 mr-2" />;
+              iconStateProp = "locked";
             }
 
             return (
               <AccordionItem key={module._id} value={`module-${index}`}>
-                <AccordionTrigger>
-                  <div className="flex items-center">
-                    {icon}
-                    <span className="font-semibold">{`Module ${index + 1}: ${module.name}`}</span>
-                  </div>
+                <AccordionTrigger
+                  moduleNumber={`Module ${index + 1}`}
+                  moduleDescription={module.name}
+                  iconState={iconStateProp}
+                >
                 </AccordionTrigger>
                 <AccordionContent>
                   <ul className="pl-5">

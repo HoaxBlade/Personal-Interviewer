@@ -81,7 +81,7 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerPro
         <AccordionPrimitive.Trigger
           ref={ref}
           className={cn(
-            `flex flex-1 items-center justify-between p-4 font-medium transition-all rounded-lg border border-gray-200 ${triggerBgClass} ${triggerHoverClass} ${triggerCursor} ${triggerOpacity}`,
+            `flex flex-1 items-center justify-between p-4 font-medium transition-all rounded-lg border border-gray-200 shadow-md ${triggerBgClass} ${triggerHoverClass} ${triggerCursor} ${triggerOpacity}`,
             className
           )}
           onClick={handleClick}
@@ -97,7 +97,7 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerPro
             </div>
             <div className="flex flex-col items-start ml-2">
               <div className="text-xs text-gray-500">{moduleNumber}</div>
-              <div className={`text-base font-bold ${triggerTextClass}`}>
+              <div className={`text-sm font-bold text-left ${triggerTextClass}`}>
                 {moduleDescription}
               </div>
             </div>

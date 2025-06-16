@@ -41,7 +41,7 @@ const LeftNavBar = () => {
     ];
 
     return (
-        <div className="h-screen bg-white  relative font-inter z-40">
+        <div className="h-screen bg-white relative font-inter z-40 shadow-lg">
             <Link href="/" className="flex items-center px-8 pt-8 mb-12 pl-5 text-2xl font-bold">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 Personal Interviewer
