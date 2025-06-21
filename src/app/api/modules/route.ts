@@ -20,7 +20,8 @@ export async function GET() {
                     order_index
                 )
             `)
-            .order('order_index');
+            .order('order_index')
+            .order('order_index', { foreignTable: 'lessons', ascending: true });
 
         if (modulesError) throw modulesError;
 

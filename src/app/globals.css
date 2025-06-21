@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.prose th {
+  color: white !important;
+  font-weight: 500 !important;
+}

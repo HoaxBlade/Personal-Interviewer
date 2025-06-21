@@ -8,7 +8,7 @@ const CoursesPage = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const currentUser = user ? { _id: user.id } : null;
+  const currentUser = user ? { id: user.id } : null;
 
   if (!currentUser) {
     return <div className="flex h-screen items-center justify-center">Please log in to view courses.</div>;
