@@ -109,7 +109,7 @@ const CoursesRightSideBar: React.FC<CoursesRightSideBarProps> = ({
   }, [user?.id, refreshSidebar]);
 
   const isLessonCompleted = (lessonId: string) =>
-    completedLessons.some((cl) => cl.lesson.id === lessonId);
+    completedLessons.some((cl) => cl.lesson && cl.lesson.id === lessonId);
 
   const isModuleCompleted = (module: Module) =>
     module.lessons.every((lesson) => isLessonCompleted(lesson.id));
