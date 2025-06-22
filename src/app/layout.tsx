@@ -4,7 +4,6 @@ import "./globals.css";
 import Script from "next/script";
 import { TempoInit } from "@/components/tempo-init";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Script src="https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js" />
-      <body className={inter.className}>
+      <body className={`${inter.className} h-screen overflow-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -31,7 +30,6 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <TempoInit />
-        <SpeedInsights />
       </body>
     </html>
   );
