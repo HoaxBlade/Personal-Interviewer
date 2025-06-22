@@ -19,7 +19,8 @@ export async function GET() {
         // Step 2: Fetch all lessons
         const { data: lessons, error: lessonsError } = await supabase
             .from('lessons')
-            .select('id, name, content, order_index, module_id');
+            .select('id, name, content, order_index, module_id')
+            .order('order_index');
 
         if (lessonsError) {
             console.error('Error fetching lessons:', lessonsError);

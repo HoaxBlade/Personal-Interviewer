@@ -101,7 +101,7 @@ Generate a **high-quality lesson** on the topic** tailored for technical intervi
     `;
 
         // 3. Get the generative model and generate content
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
         const result = await model.generateContent(prompt);
         const generatedContent = result.response.text();
 
